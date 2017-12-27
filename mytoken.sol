@@ -13,9 +13,10 @@ contract MyToken {
     event Transfer(address indexed from, address indexed to, uint256 value);
     
     /* Initializes contract with initial supply tokens to the creator of the contract */
-    function MyToken(uint256 _supply, string _name, string _symbol, uint8 _decimals) {
+    function MyToken(uint256 _supply, string _name, string _symbol, uint8 _decimals) public {
         /* if supply not given then generate 1 million of the smallest unit of the token */
-        if (_supply == 0) _supply = 1000000;
+        if (_supply == 0) 
+            _supply = 1000000;
         
         /* Unless you add other functions these variables will never change */
         balanceOf[msg.sender] = _supply;
@@ -27,10 +28,12 @@ contract MyToken {
     }
 
     /* Send coins */
-    function transfer(address _to, uint256 _value) {
+    function transfer(address _to, uint256 _value) public {
         /* If the sender doesn't have enough balance then stop */
-        if (balanceOf[msg.sender] < _value) revert();
-        if (balanceOf[_to] + _value < balanceOf[_to]) revert();
+        if (balanceOf[msg.sender] < _value) 
+            revert();
+        if (balanceOf[_to] + _value < balanceOf[_to]) 
+            revert();
         
         /* Add and subtract new balances */
         balanceOf[msg.sender] -= _value;
